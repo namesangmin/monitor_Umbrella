@@ -1,24 +1,39 @@
 #include "Button.h"
 
 void initButton(){
-    pinMode(button1Pin, INPUT_PULLUP);
-    pinMode(button2Pin, INPUT_PULLUP);
-    pinMode(button3Pin, INPUT_PULLUP);
-    pinMode(button4Pin, INPUT_PULLUP);
-    pinMode(button5Pin, INPUT_PULLUP);
+    pinMode(Umbrella1Pin, INPUT_PULLUP); // 우산 1
+    pinMode(Umbrella2Pin, INPUT_PULLUP); // 우산 2
+    pinMode(Umbrella3Pin, INPUT_PULLUP); // 우산 3
+    pinMode(ReturnPin, INPUT_PULLUP); // 반납
+    pinMode(RentalPin, INPUT_PULLUP); // 대여
 }
+
+// 반납, 대여 버튼
+String waitForAction(){
+    while(true){
+        if(digitalRead(ReturnPin) == LOW){
+            Serial.println("반납 버튼 눌림");
+            delay(200);
+            return "return";
+        }
+        else if(digitalRead(RentalPin) == LOW) {
+            Serial.println("대여 버튼 눌림");
+            delay(200);
+            return "rental";
+        }
+    }
+}
+
 // 버튼 누를 때까지 기다림
 int waitForButtonPress() {
     int button = -1;
-    while (button == -1) {
-      button = funcButton(); 
-    }
+    while (button == -1) button = UmbrellaButton(); 
     return button;
 }
 
-int funcButton(){
-    const int NUM_BUTTONS = 5;
-    const int buttonPins[NUM_BUTTONS] = {button1Pin, button2Pin, button3Pin, button4Pin, button5Pin};
+int UmbrellaButton(){
+    const int NUM_BUTTONS = 3;
+    const int buttonPins[NUM_BUTTONS] = {Umbrella1Pin, Umbrella2Pin, Umbrella3Pin};
 
     for (int i = 0; i < NUM_BUTTONS; i++) {
         if (digitalRead(buttonPins[i]) == LOW) {

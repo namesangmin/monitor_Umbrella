@@ -13,18 +13,18 @@ const char* mqtt_server = "112.184.197.77";  // 라즈베리파이 IP -> MQTT �
 const int port = 1883;
 //const char* serverURL = "http://112.184.197.77:5000/rfid_check"; -> Flask 용(HTTP)
 
-// ESP32 버튼 핀 셋팅값(우산)
+// ESP32 버튼 핀 셋팅값(우산, 반납, 대여)
 // 일단 5개임 더 늘릴 수 있는데 가지고 있는 버튼이 5개 밖에 없음
-const int button1Pin = 4;  // 우산 1
-const int button2Pin = 5;  // 우산 2
-const int button3Pin = 19; // 우산 3
-const int button4Pin = 22; // 우산 4
-const int button5Pin = 23; // 우산 5
+const int Umbrella1Pin = 4;  // 우산 1
+const int Umbrella2Pin = 5;  // 우산 2
+const int Umbrella3Pin = 19; // 우산 3
+const int ReturnPin = 22; // 반납
+const int RentalPin = 23; // 대여
 // SG90 서보모터 셋팅값
 const int servoPin = 18;
 // RFID 셋팅값
 const int RST_Pin = 22;
-const int SS_Pin = 22;
+const int SS_Pin = 21;
 
 void setup() {
   // put your setup code here, to run once:
@@ -42,7 +42,6 @@ void loop() {
   client.loop();
 
   String uid = funcRFID();
-  
   if (uid != "") {
     Serial.println("Tag UID: " + uid);
     client.publish("uid/check", uid.c_str());

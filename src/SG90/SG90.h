@@ -6,5 +6,4 @@ extern Servo myServo;
 
 void initServo(int servoPin);
 void unlockUmbrella(int ButtonNum);
-void close();
 #endif
