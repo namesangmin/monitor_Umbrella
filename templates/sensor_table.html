@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sensor Data</title>
+</head>
+<body>
+    <h1>Sensor Data</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Temperature (°C)</th>
+            <th>Humidity (%)</th>
+            <th>Timestamp</th>
+        </tr>
+        {% for sensor in sensors %}
+        <tr>
+            <td>{{ sensor.id }}</td>
+            <td>{{ sensor.temperature }}</td>
+            <td>{{ sensor.humidity }}</td>
+            <td>{{ sensor.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
