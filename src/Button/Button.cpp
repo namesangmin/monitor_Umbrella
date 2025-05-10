@@ -10,18 +10,23 @@ void initButton(){
 
 // 반납, 대여 버튼
 String waitForAction(){
-    while(true){
+    Serial.println("대여 또는 반납 버튼을 눌러주세요 (10초 이내)");
+    unsigned long start = millis();
+
+    while(millis() - start < 10000){
         if(digitalRead(ReturnPin) == LOW){
-            Serial.println("반납 버튼 눌림");
+            Serial.println("[반납 버튼 눌림]");
             delay(200);
             return "return";
         }
         else if(digitalRead(RentalPin) == LOW) {
-            Serial.println("대여 버튼 눌림");
+            Serial.println("[대여 버튼 눌림]");
             delay(200);
             return "rental";
         }
     }
+    Serial.println("입력 시간 초과: 메인으로 돌아갑니다.");
+    return "";
 }
 
 // 버튼 누를 때까지 기다림
@@ -42,5 +47,5 @@ int UmbrellaButton(){
           return i + 1;  
         }
       }
-      return -1; 
+    return -1; 
 }
