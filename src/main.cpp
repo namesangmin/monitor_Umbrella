@@ -4,6 +4,7 @@
 #include "MQTT/MQTT.h"
 #include "RFID/RFID.h"
 #include "Button/Button.h"
+#include "LCD/LCDControl.h"
 
 // 와이파이 아이디, 비밀번호
 const char* ssid = "hello";
@@ -23,7 +24,7 @@ const int RentalPin = 15; // 대여
 // SG90 서보모터 셋팅값
 const int servoPin = 16;
 // RFID 셋팅값
-const int RST_Pin = 22;
+const int RST_Pin = 17;
 const int SS_Pin = 5;
 
 bool waiting = true;
@@ -36,18 +37,18 @@ void setup() {
   initServo(servoPin); // SG90 Servo 모터 셋팅값, myServo.attach(servoPin);
   initMQTT(); // MQTT 셋팅값
   initRFID(); // RFID 셋팅값
+  LCD.init();
 }
-
 
 void loop() {
   // put your main code here, to run repeatedly:
   if(!client.connected()) reconnect();
   client.loop();
   if(waiting){
-    Serial.println("학생증 카드 또는 학생증 앱을 태그해주세요.");
+    LCD.MainPrint(); //Serial.println("학생증 카드 또는 학생증 앱을 태그해주세요.");
     waiting = false;
-
   }
+
   String uid = funcRFID();
   if (uid != "") {
     Serial.println("Tag UID: " + uid);

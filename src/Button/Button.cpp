@@ -1,4 +1,7 @@
 #include "Button.h"
+#include "LCD/LCDChoice.h"
+#include "LCD/LCDButton.h"
+#include "LCD/LCDControl.h"
 
 void initButton(){
     pinMode(Umbrella1Pin, INPUT_PULLUP); // 우산 1
@@ -10,22 +13,38 @@ void initButton(){
 
 // 반납, 대여 버튼
 String waitForAction(){
-    Serial.println("대여 또는 반납 버튼을 눌러주세요 (10초 이내)");
+    ButtonPrompt(); //Serial.println("대여 또는 반납 버튼을 눌러주세요 (10초 이내)");
     unsigned long start = millis();
 
-    while(millis() - start < 10000){
+    for(int i=9; i>=0; i--){
+        LCD.getLCD().setCursor(14,1);
+        if(i <10) LCD.getLCD().print(" ");
+        LCD.getLCD().setCursor(14,1);
+        LCD.getLCD().print(String(i) +"s");
+
         if(digitalRead(ReturnPin) == LOW){
-            Serial.println("[반납 버튼 눌림]");
-            delay(200);
+            ButtonReturnPressed(); //Serial.println("[반납 버튼 눌림]");
             return "return";
         }
         else if(digitalRead(RentalPin) == LOW) {
-            Serial.println("[대여 버튼 눌림]");
-            delay(200);
+            ButtonRentalPressed();//Serial.println("[대여 버튼 눌림]");
             return "rental";
         }
+        delay(1000);
     }
-    Serial.println("입력 시간 초과: 메인으로 돌아갑니다.");
+    /*
+    while(millis() - start < 10000){
+        if(digitalRead(ReturnPin) == LOW){
+            ButtonReturnPressed(); //Serial.println("[반납 버튼 눌림]");
+            return "return";
+        }
+        else if(digitalRead(RentalPin) == LOW) {
+            ButtonRentalPressed();//Serial.println("[대여 버튼 눌림]");
+            return "rental";
+        }
+    }*/
+    TimeoutPrint();//Serial.println("입력 시간 초과: 메인으로 돌아갑니다.");
+    ChoiceGoMain();
     return "";
 }
 
@@ -42,7 +61,7 @@ int UmbrellaButton(){
 
     for (int i = 0; i < NUM_BUTTONS; i++) {
         if (digitalRead(buttonPins[i]) == LOW) {
-          Serial.printf("우산 %d번 버튼 눌림 - 잠금/해제 동작\n", i + 1);
+          ButtonUmbrellaPressed(i+1);//Serial.printf("우산 %d번 버튼 눌림 - 잠금/해제 동작\n", i + 1);
           delay(200);  // 디바운싱(여러 번 누를 수 있으니까)
           return i + 1;  
         }
