@@ -14,10 +14,14 @@
 - `/return`: 반납인데 아직 필요없음
 
 ## 실행 방법
-'''bash
-# 가상환경 활성화 
+```bash
+# 가상환경 활성화
+source myenv/bin/activate
+
+# 서버 실행
 python app.py
-'''
+```
+
 ## 시스템 흐름 요약
 1. 카드만으로 대여하는 경우
 리더기에 RFID 태깅 → UID만으로 바로 대여 처리
