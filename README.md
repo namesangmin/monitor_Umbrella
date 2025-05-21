@@ -14,7 +14,7 @@
 - `/return`: 반납인데 아직 필요없음
 
 ## 실행 방법
-```bash
+'''bash
 # 가상환경 활성화 
 python app.py
 '''
