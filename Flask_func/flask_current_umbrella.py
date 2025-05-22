@@ -21,13 +21,12 @@ def current_umbrella_map():
                        FROM umbrella_count
                        WHERE location_id=%s"""
                        ,(location_id,))
-        current_count = cursor.fetchall()
+        count = cursor.fetchall()
         cursor.close()
         conn.close()
-        
-        if current_count is None:
+        if count is None:
             return jsonify({'error' : '해당 위치의 데이터가 존재하지 않습니다'}), 404
-        return jsonify({'current_count':current_count})
+        return jsonify({'count':count})
     except Exception as e:
         return jsonify({'error': '우산 현황 조회 중 오류가 발생했습니다', 'detail': str(e)}), 500
         

@@ -40,6 +40,8 @@ def user_info():
             hours = (abs_seconds % 86400) // 3600
             minutes = (abs_seconds % 3600) // 60
             
+            # 분 단위로 전체 시간 계산
+            remain_time_minutes = abs_seconds // 60
             if is_late:
                 status_message = f"{days}일 {hours}시간 {minutes}분 연체 중"
             else:
@@ -51,6 +53,10 @@ def user_info():
             'coupon_count' : coupon_count,
             'borrow_day' : borrow_day,
             'pre_return_day' : pre_return_day,
+            'is_late' : is_late,
+            
+            # 변수하나 남은 시간 분 단위 
+            'remain_time_minutes' : remain_time_minutes,
             'status' : status_message
         })       
     except Exception as e:
