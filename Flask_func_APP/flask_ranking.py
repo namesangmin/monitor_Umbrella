@@ -6,7 +6,7 @@ ranking_bp = Blueprint('ranking', __name__)
 def ranking():
     try:
         conn = DB.get_db()
-        cursor = conn.cursor(dictionary=True)
+        cursor = conn.cursor()
 
         cursor.execute("""
             SELECT s.name, u.penalty_days AS score, u.major

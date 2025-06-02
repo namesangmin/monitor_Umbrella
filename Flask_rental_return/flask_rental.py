@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 # 4. 일치하면 빌릴 수 있고, 일치하지 않으면 정보가 일치하지 않다고 오류가 뜨게 함
 
 rental_bp = Blueprint('rental', __name__)
-@rental_bp.route('/rental', method=['POST'])
+@rental_bp.route('/rental', methods=['POST'])
 def rental():
     student_id = request.json.get('student_id')
     

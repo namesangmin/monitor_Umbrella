@@ -15,7 +15,8 @@ def current_umbrella_map():
             return jsonify({'error': '[current_umbrella_map] location_id가 필요합니다.'}), 400
         
         conn = DB.get_db()
-        cursor = conn.cursor(dictionary=True)
+        #dictionary=true => noting
+        cursor = conn.cursor()
         
         cursor.execute("""SELECT current_count, max_count 
                        FROM umbrella_count

@@ -18,7 +18,7 @@ def rental_log():
             return jsonify({'error': '[rental_log] student_id가 필요합니다'}), 400
         
         conn = DB.get_db()
-        cursor = conn.cursor(dictionary = True)
+        cursor = conn.cursor()
         cursor.execute("""
                     SELECT rl.location_id, rl.borrow_time, rl.return_time
                     FROM rental_log rl
